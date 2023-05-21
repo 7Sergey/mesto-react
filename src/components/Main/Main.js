@@ -1,14 +1,10 @@
-function Main({
-  handleEditAvatarClick,
-  handleEditProfileClick,
-  handleAddPlaceClick,
-}) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   return (
     <main className="main">
       <section className="profile">
         <div className="profile__button">
           <img
-            onClick={handleEditAvatarClick}
+            onClick={onEditAvatar}
             alt="Картинка профиля"
             className="profile__avatar"
           />
@@ -18,7 +14,7 @@ function Main({
           <div className="profile__container">
             <h1 className="profile__title">Жак-Ив Кусто</h1>
             <button
-              onClick={handleEditProfileClick}
+              onClick={onEditProfile}
               type="button"
               className="profile__edit-button"
               title="Редактировать профиль"
@@ -27,7 +23,7 @@ function Main({
           <p className="profile__subtitle">Исследователь океана</p>
         </div>
         <button
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
           type="button"
           className="profile__add-button"
           title="Добавить новую карточку"
