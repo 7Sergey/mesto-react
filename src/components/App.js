@@ -2,7 +2,7 @@ import Header from './Header/Header'
 import Main from './Main/Main'
 import Footer from './Footer/Footer'
 import PopupWithForm from './PopupWithForm/PopupWithForm'
-import PopupWithImage from './PopupWithImage/PopupWithImage'
+import ImagePopup from './ImagePopup/ImagePopup'
 import React from 'react'
 
 function App() {
@@ -158,7 +158,7 @@ function App() {
           Да
         </button>
       </PopupWithForm>
-      <PopupWithImage card={selectedCard} />
+      <ImagePopup card={selectedCard} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-function PopupWithImage({ card }) {
+function ImagePopup({ card }) {
   return (
     <section className={`popup popup-zoom ${card && 'popup_opened'} `}>
       <div className="popup-zoom__container">
@@ -17,4 +17,4 @@ function PopupWithImage({ card }) {
     </section>
   )
 }
-export default PopupWithImage
+export default ImagePopup
