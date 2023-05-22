@@ -1,4 +1,27 @@
-function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
+import React from 'react'
+import { api } from '../../utils/Api'
+import Card from '../Card/Card'
+
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+  const [userName, setUserName] = React.useState(null)
+  const [userDescription, setUserDescription] = React.useState(null)
+  const [userAvatar, setUserAvatar] = React.useState(null)
+  const [cards, setCards] = React.useState([])
+
+  React.useEffect(() => {
+    api.getProfile().then((data) => {
+      setUserName(data.name)
+      setUserDescription(data.about)
+      setUserAvatar(data.avatar)
+    })
+  }, [])
+
+  React.useEffect(() => {
+    api.getCards().then((cards) => {
+      setCards(cards)
+    })
+  }, [])
+
   return (
     <main className="main">
       <section className="profile">
@@ -7,12 +30,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
             onClick={onEditAvatar}
             alt="Картинка профиля"
             className="profile__avatar"
+            src={userAvatar}
           />
         </div>
 
         <div className="profile__info">
           <div className="profile__container">
-            <h1 className="profile__title">Жак-Ив Кусто</h1>
+            <h1 className="profile__title">{userName}</h1>
             <button
               onClick={onEditProfile}
               type="button"
@@ -20,7 +44,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
               title="Редактировать профиль"
             ></button>
           </div>
-          <p className="profile__subtitle">Исследователь океана</p>
+          <p className="profile__subtitle">{userDescription}</p>
         </div>
         <button
           onClick={onAddPlace}
@@ -29,7 +53,17 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
           title="Добавить новую карточку"
         ></button>
       </section>
-      <section className="elements"></section>
+      <section className="elements">
+        {cards.map((card, i) => {
+          return (
+            <Card
+              card={card}
+              key={i}
+              onCardClick={onCardClick}
+            />
+          )
+        })}
+      </section>
     </main>
   )
 }

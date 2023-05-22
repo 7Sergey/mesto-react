@@ -11,6 +11,18 @@ function App() {
     React.useState(false)
   const [isEditAvatar, setIsEditAvatar] = React.useState(false)
   const [isAddPlace, setIsAddPlace] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState('')
+
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false)
+    setIsEditAvatar(false)
+    setIsAddPlace(false)
+    setSelectedCard(null)
+  }
+
+  function onCardClick(card) {
+    setSelectedCard(card)
+  }
 
   return (
     <div className="body">
@@ -25,12 +37,14 @@ function App() {
         onAddPlace={() => {
           setIsAddPlace(!isAddPlace)
         }}
+        onCardClick={onCardClick}
       />
       <Footer />
       <PopupWithForm
         title={'Редактировать профиль'}
         name={'profile'}
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input popup__input_type_profile"
@@ -71,6 +85,7 @@ function App() {
         title={'Новое место'}
         name={'new-card'}
         isOpen={isAddPlace}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input popup__input_type_name"
@@ -109,6 +124,7 @@ function App() {
         title={'Обновить аватар'}
         name={'avatar'}
         isOpen={isEditAvatar}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input popup__input_type_link"
@@ -130,7 +146,7 @@ function App() {
           Сохранить
         </button>
       </PopupWithForm>
-      {/* <PopupWithForm
+      <PopupWithForm
         title={'Вы уверены?'}
         name={'confirm-delete'}
       >
@@ -141,32 +157,8 @@ function App() {
         >
           Да
         </button>
-      </PopupWithForm> */}
-      <PopupWithImage />
-      <template className="template">
-        <div className="elements__item card">
-          <img
-            className="elements__image card__image"
-            alt="alt для img"
-          />
-          <button
-            type="button"
-            className="elements__trash-button card__trash-button"
-          ></button>
-          <div className="elements__container card__container">
-            <h2 className="elements__title card__title">
-              титульник для элемента
-            </h2>
-            <div className="elements__likes-container">
-              <button
-                type="button"
-                className="elements__button card__button"
-              ></button>
-              <p className="elements__likes-counter card__likes-counter"></p>
-            </div>
-          </div>
-        </div>
-      </template>
+      </PopupWithForm>
+      <PopupWithImage card={selectedCard} />
     </div>
   )
 }

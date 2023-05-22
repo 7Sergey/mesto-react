@@ -1,10 +1,10 @@
-function PopupWithImage() {
+function PopupWithImage({ card }) {
   return (
-    <section className="popup popup-zoom">
+    <section className={`popup popup-zoom ${card && 'popup_opened'} `}>
       <div className="popup-zoom__container">
         <img
-          src="#"
-          alt="Увеличенное изображение"
+          src={card && card.link} //костыль или нет...
+          alt={`Увеличенное изображение ${card.name}`}
           className="popup-zoom__image"
         />
         <button
@@ -12,7 +12,7 @@ function PopupWithImage() {
           className="popup__close"
           aria-label="Закрыть попап"
         ></button>
-        <p className="popup-zoom__title">Текст с названием карточки</p>
+        <p className="popup-zoom__title">{card.name}</p>
       </div>
     </section>
   )

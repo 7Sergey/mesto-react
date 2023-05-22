@@ -1,4 +1,4 @@
-function PopupWithForm({ title, name, children, isOpen }) {
+function PopupWithForm({ title, name, children, isOpen, onClose }) {
   return (
     <section className={`popup popup_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
@@ -6,6 +6,7 @@ function PopupWithForm({ title, name, children, isOpen }) {
           type="button"
           className="popup__close"
           aria-label="Закрыть попап"
+          onClick={onClose}
         ></button>
         <h2 className="popup__title">{title}</h2>
         <form
