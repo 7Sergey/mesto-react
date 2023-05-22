@@ -11,16 +11,21 @@ function App() {
     React.useState(false)
   const [isEditAvatar, setIsEditAvatar] = React.useState(false)
   const [isAddPlace, setIsAddPlace] = React.useState(false)
-  const [selectedCard, setSelectedCard] = React.useState('')
+  const [isImagePopup, setIsImagePopup] = React.useState(false)
+
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' })
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatar(false)
     setIsAddPlace(false)
-    setSelectedCard(null)
+    setIsImagePopup(false)
+
+    // setSelectedCard({ name: '', link: '' })
   }
 
-  function onCardClick(card) {
+  const onCardClick = (card) => {
+    setIsImagePopup(true) //для плавности открытия, и чтобы не было видимости пустых полей
     setSelectedCard(card)
   }
 
@@ -45,6 +50,7 @@ function App() {
         name={'profile'}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText={'Сохранить'}
       >
         <input
           className="popup__input popup__input_type_profile"
@@ -72,13 +78,6 @@ function App() {
           className="popup__error"
           id="about-error"
         ></span>
-        <button
-          type="submit"
-          className="popup__button"
-          aria-label="Сохранить изменения"
-        >
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
@@ -86,6 +85,7 @@ function App() {
         name={'new-card'}
         isOpen={isAddPlace}
         onClose={closeAllPopups}
+        buttonText={'Создать'}
       >
         <input
           className="popup__input popup__input_type_name"
@@ -110,14 +110,6 @@ function App() {
           className="popup__error"
           id="link-error"
         ></span>
-        <button
-          type="submit"
-          className="popup__button popup__button_disabled"
-          aria-label="Сохранить изменения"
-          disabled
-        >
-          Создать
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
@@ -125,6 +117,7 @@ function App() {
         name={'avatar'}
         isOpen={isEditAvatar}
         onClose={closeAllPopups}
+        buttonText={'Сохранить'}
       >
         <input
           className="popup__input popup__input_type_link"
@@ -137,28 +130,17 @@ function App() {
           className="popup__error"
           id="avatar-error"
         ></span>
-        <button
-          type="submit"
-          className="popup__button popup__button_disabled"
-          aria-label="Сохранить изменения"
-          disabled
-        >
-          Сохранить
-        </button>
       </PopupWithForm>
       <PopupWithForm
         title={'Вы уверены?'}
         name={'confirm-delete'}
-      >
-        <button
-          type="submit"
-          className="popup__button"
-          aria-label="Сохранить изменения"
-        >
-          Да
-        </button>
-      </PopupWithForm>
-      <ImagePopup card={selectedCard} />
+        buttonText={'Да'}
+      ></PopupWithForm>
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopup}
+        onClose={closeAllPopups}
+      />
     </div>
   )
 }
