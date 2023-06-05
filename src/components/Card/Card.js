@@ -1,4 +1,15 @@
-function Card({ card, onCardClick }) {
+import React from 'react'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+
+function Card({ card, onCardClick, handleCardLike }) {
+  const currentUser = React.useContext(CurrentUserContext)
+
+  const isOwn = card.owner._id === currentUser._id // у владельца карточки будет отображаться корзина
+  const isLiked = card.likes.some((i) => i._id === currentUser._id) //показывает, есть ли среди лайкнувших пользователь для раскраски кнопки лайка
+  const cardLikeButtonClassName = `elements__button card__button ${
+    isLiked && ' elements__button_active'
+  }`
+
   return (
     <div className="elements__item card">
       <img
@@ -7,17 +18,25 @@ function Card({ card, onCardClick }) {
         src={card.link}
         onClick={() => onCardClick(card)}
       />
-      <button
-        type="button"
-        className="elements__trash-button card__trash-button"
-      ></button>
+      {isOwn && (
+        <button
+          type="button"
+          className="elements__trash-button card__trash-button"
+          onClick={() => {
+            console.log('Delete') //передать сюда handle
+          }}
+        />
+      )}
+
       <div className="elements__container card__container">
         <h2 className="elements__title card__title">{card.name}</h2>
         <div className="elements__likes-container">
           <button
             type="button"
-            className="elements__button card__button"
+            className={cardLikeButtonClassName}
+            onClick={() => handleCardLike(card)}
           ></button>
+
           <p className="elements__likes-counter card__likes-counter">
             {card.likes.length}
           </p>

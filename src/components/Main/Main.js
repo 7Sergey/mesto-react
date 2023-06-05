@@ -1,23 +1,17 @@
 import React from 'react'
 import { api } from '../../utils/Api'
 import Card from '../Card/Card'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState(null)
-  const [userDescription, setUserDescription] = React.useState(null)
-  const [userAvatar, setUserAvatar] = React.useState(null)
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  handleCardLike,
+}) {
   const [cards, setCards] = React.useState([])
-
-  React.useEffect(() => {
-    api
-      .getProfile()
-      .then((data) => {
-        setUserName(data.name)
-        setUserDescription(data.about)
-        setUserAvatar(data.avatar)
-      })
-      .catch(console.log)
-  }, [])
+  const currentUser = React.useContext(CurrentUserContext)
 
   React.useEffect(() => {
     api
@@ -36,13 +30,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             onClick={onEditAvatar}
             alt="Картинка профиля"
             className="profile__avatar"
-            src={userAvatar}
+            src={currentUser.avatar}
           />
         </div>
 
         <div className="profile__info">
           <div className="profile__container">
-            <h1 className="profile__title">{userName}</h1>
+            <h1 className="profile__title">{currentUser.name}</h1>
             <button
               onClick={onEditProfile}
               type="button"
@@ -50,7 +44,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
               title="Редактировать профиль"
             ></button>
           </div>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           onClick={onAddPlace}
@@ -66,6 +60,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
               card={card}
               key={card._id}
               onCardClick={onCardClick}
+              handleCardLike={handleCardLike}
             />
           )
         })}

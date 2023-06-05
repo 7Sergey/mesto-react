@@ -72,6 +72,15 @@ export default class Api {
       }),
     }).then((res) => this._checkResponse(res))
   }
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      //если карточка лайнкута, то отправляем запрос на удаление
+      return this.deleteLike(cardId)
+    } else {
+      //если карточка не лайкнута, отправлеем запрос на постановку лайка
+      return this.setLike(cardId)
+    }
+  }
 }
 
 export const api = new Api({
