@@ -1,7 +1,7 @@
 import React from 'react'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-function Card({ card, onCardClick, handleCardLike }) {
+function Card({ card, onCardClick, handleCardLike, handleCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext)
 
   const isOwn = card.owner._id === currentUser._id // у владельца карточки будет отображаться корзина
@@ -23,7 +23,7 @@ function Card({ card, onCardClick, handleCardLike }) {
           type="button"
           className="elements__trash-button card__trash-button"
           onClick={() => {
-            console.log('Delete') //передать сюда handle
+            handleCardDelete(card)
           }}
         />
       )}

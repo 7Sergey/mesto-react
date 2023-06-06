@@ -1,4 +1,12 @@
-function PopupWithForm({ title, name, children, isOpen, onClose, buttonText }) {
+function PopupWithForm({
+  title,
+  name,
+  children,
+  isOpen,
+  onClose,
+  buttonText,
+  onSubmit,
+}) {
   return (
     <section className={`popup popup_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
@@ -10,8 +18,9 @@ function PopupWithForm({ title, name, children, isOpen, onClose, buttonText }) {
         ></button>
         <h2 className="popup__title">{title}</h2>
         <form
+          onSubmit={onSubmit}
           className={`popup__form popup__form_${name}`}
-          name={`${name}nprofile-form`}
+          name={`${name}-form`}
           noValidate
         >
           {children}

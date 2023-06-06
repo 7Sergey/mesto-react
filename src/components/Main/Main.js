@@ -1,5 +1,5 @@
 import React from 'react'
-import { api } from '../../utils/Api'
+// import { api } from '../../utils/Api'
 import Card from '../Card/Card'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
@@ -9,18 +9,10 @@ function Main({
   onAddPlace,
   onCardClick,
   handleCardLike,
+  handleCardDelete,
+  cards,
 }) {
-  const [cards, setCards] = React.useState([])
   const currentUser = React.useContext(CurrentUserContext)
-
-  React.useEffect(() => {
-    api
-      .getCards()
-      .then((cards) => {
-        setCards(cards)
-      })
-      .catch(console.log)
-  }, [])
 
   return (
     <main className="main">
@@ -61,6 +53,7 @@ function Main({
               key={card._id}
               onCardClick={onCardClick}
               handleCardLike={handleCardLike}
+              handleCardDelete={handleCardDelete}
             />
           )
         })}
