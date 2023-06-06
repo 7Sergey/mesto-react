@@ -1,7 +1,13 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm'
 import React from 'react'
 
-function AddPlacePopup({ isOpen, onClose, AddPlaceSubmit }) {
+function AddPlacePopup({ isOpen, onClose, addPlaceSubmit }) {
+  // const [inputValues, setInputValues] = React.useState('') //карточки
+
+  React.useEffect(() => {
+    setNewCard({ name: '', link: '' })
+  }, [isOpen])
+
   const [newCard, setNewCard] = React.useState({ name: '', link: '' })
 
   function handleInputChange(e, name) {
@@ -11,7 +17,7 @@ function AddPlacePopup({ isOpen, onClose, AddPlaceSubmit }) {
   function handleSubmit(e) {
     e.preventDefault()
 
-    AddPlaceSubmit(newCard)
+    addPlaceSubmit(newCard)
   }
   return (
     <PopupWithForm
@@ -23,6 +29,7 @@ function AddPlacePopup({ isOpen, onClose, AddPlaceSubmit }) {
       onSubmit={handleSubmit}
     >
       <input
+        value={newCard.name}
         onChange={(e) => handleInputChange(e, 'name')}
         className="popup__input popup__input_type_name"
         placeholder="Название"
@@ -36,6 +43,7 @@ function AddPlacePopup({ isOpen, onClose, AddPlaceSubmit }) {
         id="name-error"
       ></span>
       <input
+        value={newCard.link}
         onChange={(e) => handleInputChange(e, 'link')}
         className="popup__input popup__input_type_link"
         placeholder="Ссылка на картинку"

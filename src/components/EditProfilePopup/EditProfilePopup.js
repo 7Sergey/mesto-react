@@ -9,7 +9,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   React.useEffect(() => {
     setData({ name: currentUser.name, about: currentUser.about })
-  }, [currentUser])
+  }, [currentUser, isOpen])
 
   function handleInputChange(e, name) {
     setData({ ...data, [name]: e.target.value }) //динамическое создание свойства черезез []

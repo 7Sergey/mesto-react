@@ -20,7 +20,7 @@ function App() {
 
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' })
 
-  const [currentUser, setCurrentUser] = React.useState('')
+  const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' })
 
   const [cards, setCards] = React.useState([]) //карточки
 
@@ -59,9 +59,14 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id)
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)))
-    })
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        )
+      })
+      .catch(console.log)
   }
   function handleCardDelete(card) {
     //удаление карточки
@@ -140,7 +145,7 @@ function App() {
         <AddPlacePopup
           isOpen={isAddPlace}
           onClose={closeAllPopups}
-          AddPlaceSubmit={handleAddPlaceSubmit}
+          addPlaceSubmit={handleAddPlaceSubmit}
         />
 
         <PopupWithForm
