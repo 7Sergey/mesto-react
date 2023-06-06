@@ -11,9 +11,9 @@
 ## Технологии
 
 - [React](https://react.dev/)
-- [JavaScript]
-- [HTML]
-- [CSS]
+- [JavaScript](https://developer.mozilla.org/ru/docs/Web/JavaScript)
+- [HTML](https://developer.mozilla.org/ru/docs/Learn/Getting_started_with_the_web/HTML_basics)
+- [CSS](https://developer.mozilla.org/ru/docs/Learn/Getting_started_with_the_web/CSS_basics)
 
 ## Разработка
 
